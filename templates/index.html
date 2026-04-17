@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ιδέες ✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0f0e17;
+      --surface: #1a1826;
+      --surface2: #242235;
+      --accent: #ff6b6b;
+      --accent2: #ffd93d;
+      --accent3: #6bcb77;
+      --text: #fffffe;
+      --muted: #a7a9be;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+    body::before, body::after { content: ''; position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.15; pointer-events: none; z-index: 0; }
+    body::before { width: 500px; height: 500px; background: var(--accent); top: -150px; left: -150px; animation: float1 12s ease-in-out infinite; }
+    body::after { width: 400px; height: 400px; background: var(--accent2); bottom: -100px; right: -100px; animation: float2 15s ease-in-out infinite; }
+    @keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(60px,80px)} }
+    @keyframes float2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-60px,-50px)} }
+    .container { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; position: relative; z-index: 1; }
+    header { text-align: center; padding: 3rem 0 2rem; }
+    header h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.5rem,7vw,4.5rem); font-weight: 800; letter-spacing: -2px; background: linear-gradient(135deg,var(--accent) 0%,var(--accent2) 60%,var(--accent3) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.1; }
+    header p { color: var(--muted); margin-top: 0.75rem; font-size: 1.05rem; }
+    .tabs { display: flex; gap: 0.5rem; margin: 2rem 0 1.5rem; flex-wrap: wrap; }
+    .tab-btn { background: var(--surface); border: 2px solid transparent; color: var(--muted); padding: 0.5rem 1.1rem; border-radius: 100px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; transition: all 0.2s; }
+    .tab-btn:hover { border-color: var(--accent); color: var(--text); }
+    .tab-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+    .card { background: var(--surface); border-radius: var(--radius); padding: 1.75rem; margin-bottom: 1.25rem; border: 1px solid rgba(255,255,255,0.06); transition: transform 0.2s,border-color 0.2s; }
+    .card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.12); }
+    .card h2 { font-family: 'Syne', sans-serif; color: var(--accent2); text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; margin-bottom: 1rem; }
+    .cat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; margin-bottom: 1rem; }
+    @media(max-width:500px){ .cat-grid{grid-template-columns:repeat(2,1fr)} }
+    .cat-btn { background: var(--surface2); border: 2px solid transparent; border-radius: 12px; color: var(--text); padding: 0.85rem 0.5rem; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; text-align: center; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+    .cat-btn:hover { border-color: var(--accent); transform: scale(1.03); }
+    .cat-btn.selected { border-color: var(--accent); background: rgba(255,107,107,0.15); }
+    .cat-btn .emoji { font-size: 1.5rem; }
+    .input-row { display: flex; gap: 0.75rem; margin-top: 1rem; }
+    input[type="text"] { background: var(--surface2); border: 2px solid rgba(255,255,255,0.08); border-radius: 12px; color: var(--text); padding: 0.75rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s; width: 100%; }
+    input[type="text"]:focus { border-color: var(--accent); }
+    input[type="text"]::placeholder { color: var(--muted); }
+    .btn { background: var(--accent); color: white; border: none; border-radius: 12px; padding: 0.75rem 1.4rem; font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+    .btn:hover { background: #ff5252; transform: translateY(-1px); }
+    .btn:active { transform: scale(0.97); }
+    .btn-secondary { background: var(--surface2); color: var(--text); }
+    .btn-secondary:hover { background: var(--accent2); color: #0f0e17; }
+    .btn-green { background: var(--accent3); color: #0f0e17; }
+    .btn-green:hover { background: #5bc467; }
+    #random-result { display: none; margin-top: 1.25rem; padding: 1.25rem 1.5rem; background: linear-gradient(135deg,rgba(255,107,107,0.15),rgba(255,217,61,0.1)); border: 1px solid rgba(255,107,107,0.3); border-radius: 14px; animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes popIn { from{opacity:0;transform:scale(0.9) translateY(10px)} to{opacity:1;transform:scale(1) translateY(0)} }
+    #random-result .idea-text { font-size: 1.3rem; font-weight: 500; margin-bottom: 1rem; line-height: 1.4; }
+    #random-result .result-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    #ideas-list { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 1rem; max-height: 420px; overflow-y: auto; padding-right: 4px; }
+    #ideas-list::-webkit-scrollbar { width: 4px; }
+    #ideas-list::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 4px; }
+    .idea-item { background: var(--surface2); border-radius: 10px; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem; animation: slideIn 0.25s ease; border: 1px solid transparent; }
+    @keyframes slideIn { from{opacity:0;transform:translateX(-10px)} to{opacity:1;transform:translateX(0)} }
+    .idea-item.done { border-color: rgba(107,203,119,0.35); background: rgba(107,203,119,0.08); }
+    .idea-item .idea-cat { font-size: 1.2rem; }
+    .idea-item .idea-body { flex: 1; font-size: 0.95rem; }
+    .idea-item .idea-date { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+    .idea-item .item-actions { display: flex; gap: 0.4rem; align-items: center; }
+    .btn-icon { background: transparent; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--muted); width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; }
+    .btn-icon:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+    .btn-icon.green-active { border-color: var(--accent3); color: var(--accent3); background: rgba(107,203,119,0.1); }
+    .btn-icon.delete:hover { border-color: var(--accent); color: var(--accent); background: rgba(255,107,107,0.1); }
+    #toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--accent3); color: #0f0e17; padding: 0.75rem 1.5rem; border-radius: 100px; font-weight: 700; font-family: 'Syne', sans-serif; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); z-index: 100; }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+    .section { display: none; }
+    .section.active { display: block; }
+    .empty-state { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.95rem; }
+    .empty-state .emoji { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+    /* Modal */
+    #modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 200; align-items: center; justify-content: center; }
+    #modal-overlay.show { display: flex; }
+    #modal-box { background: var(--surface); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 2rem; max-width: 340px; width: 90%; text-align: center; }
+    #modal-box h3 { font-family: 'Syne', sans-serif; margin-bottom: 0.5rem; }
+    #modal-box p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.5; }
+    #modal-box .modal-actions { display: flex; gap: 0.75rem; justify-content: center; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Ιδέες ✨</h1>
+    <p>Αποθήκευσε ιδέες — άφησε την τύχη να επιλέξει</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('add',this)">➕ Νέα Ιδέα</button>
+    <button class="tab-btn" onclick="switchTab('random',this)">🎲 Τυχαία</button>
+    <button class="tab-btn" onclick="switchTab('list',this)">📋 Λίστα</button>
+  </div>
+
+  <div id="tab-add" class="section active">
+    <div class="card">
+      <h2>Κατηγορία</h2>
+      <div class="cat-grid" id="add-cats"></div>
+      <div class="input-row">
+        <input type="text" id="new-idea" placeholder="Γράψε την ιδέα σου..." onkeydown="if(event.key==='Enter') addIdea()"/>
+        <button class="btn" onclick="addIdea()">Αποθήκευση</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-random" class="section">
+    <div class="card">
+      <h2>Επέλεξε κατηγορία</h2>
+      <div class="cat-grid" id="random-cats"></div>
+      <button class="btn btn-secondary" style="margin-top:1rem;width:100%" onclick="getRandom()">🎲 Τύχη!</button>
+      <div id="random-result">
+        <div class="idea-text" id="random-text"></div>
+        <div class="result-actions">
+          <button class="btn btn-green" id="done-btn" onclick="markDone()">✅ Έγινε!</button>
+          <button class="btn btn-secondary" onclick="getRandom()">🔄 Άλλη</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-list" class="section">
+    <div class="card">
+      <h2>Φίλτρο κατηγορίας</h2>
+      <div class="cat-grid" id="list-cats"></div>
+      <div id="ideas-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete confirm modal -->
+<div id="modal-overlay">
+  <div id="modal-box">
+    <h3>Διαγραφή;</h3>
+    <p id="modal-idea-text"></p>
+    <div class="modal-actions">
+      <button class="btn" onclick="confirmDelete()">🗑️ Διαγραφή</button>
+      <button class="btn btn-secondary" onclick="closeModal()">Άκυρο</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const CATS = {
+  faghto:        {label:"Φαγητό",        emoji:"🍽️"},
+  poto:          {label:"Ποτό",           emoji:"🥤"},
+  volta:         {label:"Βόλτα",          emoji:"🚶"},
+  drasthriothta: {label:"Δραστηριότητα", emoji:"🎯"},
+  meros:         {label:"Μέρος",          emoji:"📍"},
+  syntages:      {label:"Συνταγές",       emoji:"📖"}
+};
+
+// Για αυτές, done=true σημαίνει εξαίρεση από τυχαία
+const EXCLUDES_RANDOM = new Set(["volta","drasthriothta","meros"]);
+
+let selectedAddCat = null;
+let selectedRandomCat = null;
+let selectedListCat = null;
+let currentRandom = null;
+let deleteTargetId = null;
+
+function buildCatGrid(containerId, onSelect, getSelected, includeAll=false) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  if (includeAll) {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (!getSelected() ? ' selected' : '');
+    btn.innerHTML = `<span class="emoji">🔎</span><span>Όλες</span>`;
+    btn.onclick = () => { onSelect(null); };
+    el.appendChild(btn);
+  }
+  Object.entries(CATS).forEach(([key, val]) => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (getSelected() === key ? ' selected' : '');
+    btn.innerHTML = `<span class="emoji">${val.emoji}</span><span>${val.label}</span>`;
+    btn.onclick = () => onSelect(key);
+    el.appendChild(btn);
+  });
+}
+
+buildCatGrid('add-cats', k => { selectedAddCat = k; buildCatGrid('add-cats', arguments.callee, ()=>selectedAddCat); }, ()=>selectedAddCat);
+// rebuild properly
+function rebuildAddCats() { buildCatGrid('add-cats', k=>{ selectedAddCat=k; rebuildAddCats(); }, ()=>selectedAddCat); }
+function rebuildRandomCats() { buildCatGrid('random-cats', k=>{ selectedRandomCat=k; rebuildRandomCats(); }, ()=>selectedRandomCat); }
+function rebuildListCats() { buildCatGrid('list-cats', k=>{ selectedListCat=k; rebuildListCats(); loadIdeas(); }, ()=>selectedListCat, true); }
+rebuildAddCats();
+rebuildRandomCats();
+rebuildListCats();
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  btn.classList.add('active');
+  if(tab==='list') loadIdeas();
+}
+
+function showToast(msg, isRed=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = isRed ? 'var(--accent)' : 'var(--accent3)';
+  t.style.color = '#0f0e17';
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+async function addIdea() {
+  const input = document.getElementById('new-idea');
+  const idea = input.value.trim();
+  if (!idea) { showToast('✏️ Γράψε μια ιδέα!', true); return; }
+  if (!selectedAddCat) { showToast('📂 Διάλεξε κατηγορία!', true); return; }
+  await fetch('/api/ideas', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({idea, category: selectedAddCat})
+  });
+  input.value = '';
+  showToast('💾 Αποθηκεύτηκε!');
+}
+
+async function getRandom() {
+  if (!selectedRandomCat) { showToast('📂 Διάλεξε κατηγορία!', true); return; }
+  const res = await fetch(`/api/random?category=${selectedRandomCat}`);
+  const resultEl = document.getElementById('random-result');
+  if (!res.ok) {
+    currentRandom = null;
+    document.getElementById('random-text').textContent = '😅 Δεν υπάρχουν διαθέσιμες ιδέες!';
+    document.getElementById('done-btn').style.display = 'none';
+    resultEl.style.display = 'none'; void resultEl.offsetWidth; resultEl.style.display = 'block';
+    return;
+  }
+  const data = await res.json();
+  currentRandom = data;
+  document.getElementById('random-text').textContent = data.idea;
+  // Δείξε "Έγινε" μόνο αν η κατηγορία εξαιρεί done
+  document.getElementById('done-btn').style.display = EXCLUDES_RANDOM.has(selectedRandomCat) ? 'inline-flex' : 'none';
+  resultEl.style.display = 'none'; void resultEl.offsetWidth; resultEl.style.display = 'block';
+}
+
+async function markDone() {
+  if (!currentRandom) return;
+  await fetch(`/api/ideas/${currentRandom.id}/done`, {method:'PATCH'});
+  document.getElementById('random-result').style.display = 'none';
+  currentRandom = null;
+  showToast('🎉 Μαρκαρίστηκε!');
+}
+
+async function loadIdeas() {
+  rebuildListCats();
+  const url = selectedListCat ? `/api/ideas?category=${selectedListCat}` : '/api/ideas';
+  const res = await fetch(url);
+  const ideas = await res.json();
+  const list = document.getElementById('ideas-list');
+
+  if (!ideas.length) {
+    list.innerHTML = '<div class="empty-state"><span class="emoji">🌱</span>Δεν υπάρχουν ιδέες ακόμα!</div>';
+    return;
+  }
+
+  list.innerHTML = ideas.map(i => {
+    const cat = CATS[i.category];
+    const isDone = i.done;
+    const canToggle = EXCLUDES_RANDOM.has(i.category); // μόνο volta/meros/drasthriothta έχουν toggle
+    return `
+      <div class="idea-item ${isDone ? 'done' : ''}" id="item-${i.id}">
+        <span class="idea-cat">${cat?.emoji||'💡'}</span>
+        <div class="idea-body">
+          <div>${i.idea}</div>
+          <div class="idea-date">${cat?.label} · ${new Date(i.created_at).toLocaleDateString('el-GR')}</div>
+        </div>
+        <div class="item-actions">
+          ${canToggle ? `<button class="btn-icon ${isDone?'green-active':''}" title="${isDone?'Αναίρεση':'Μαρκάρισμα'}" onclick="toggleDone(${i.id})">${isDone?'🟢':'⭕'}</button>` : (isDone ? '<span title="Πράσινο" style="font-size:1rem">🟢</span>' : '')}
+          <button class="btn-icon delete" title="Διαγραφή" onclick="openDeleteModal(${i.id}, '${i.idea.replace(/'/g,"\\'")}')">🗑️</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+async function toggleDone(id) {
+  await fetch(`/api/ideas/${id}/done`, {method:'PATCH'});
+  loadIdeas();
+}
+
+function openDeleteModal(id, text) {
+  deleteTargetId = id;
+  document.getElementById('modal-idea-text').textContent = `"${text}"`;
+  document.getElementById('modal-overlay').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('show');
+  deleteTargetId = null;
+}
+
+async function confirmDelete() {
+  if (!deleteTargetId) return;
+  await fetch(`/api/ideas/${deleteTargetId}`, {method:'DELETE'});
+  closeModal();
+  showToast('🗑️ Διαγράφηκε!');
+  loadIdeas();
+}
+
+document.getElementById('modal-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+});
+</script>
+</body>
+</html>
